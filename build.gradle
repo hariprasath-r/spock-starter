@@ -6,13 +6,25 @@ plugins {
 group 'in.hp.spock'
 version '1.0-SNAPSHOT'
 
+def groovyVersion = '3.0.5'
+def spockVersion = '2.0-M5-groovy-3.0'
+def spockReportsVersion = '2.0-RC4'
+
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    implementation 'org.codehaus.groovy:groovy-all:3.0.5'
-    testImplementation 'org.spockframework:spock-core:2.0-M5-groovy-3.0'
+    implementation "org.codehaus.groovy:groovy-all:$groovyVersion"
+    testImplementation "org.spockframework:spock-core:$spockVersion"
+
+    // we can use testRuntimeClasspath if you don't want to use spock-report-specific features in your Specs
+    testImplementation("com.athaydes:spock-reports:$spockReportsVersion") {
+        transitive = false // this avoids affecting your version of Groovy/Spock
+    }
+    // if we don't already have slf4j-api and an implementation of it in the classpath, add this!
+    testImplementation 'org.slf4j:slf4j-api:1.7.30'
+    testRuntimeClasspath 'org.slf4j:slf4j-simple:1.7.30'
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'

@@ -16,7 +16,8 @@ class FirstSpec extends Specification {
      * cleanupSpec  -> executes after all test cases are completed
      */
     def "setupSpec"() {
-        println 'FirstSpec test cases are being executed'
+        reportHeader "<h2>First Spec Tests</h2>"
+        reportInfo 'FirstSpec test cases are being executed'
     }
 
     def "setup"() {
@@ -29,27 +30,27 @@ class FirstSpec extends Specification {
      */
     def "first spock test"() {
         // given block is used to define the act of the test case
-        given:
+        given: "two values a and b"
         def a = 10
         def b = 20
         def c
 
         // when acts as an arrange block
-        when:
+        when: "when a is added with b"
         c = a + b
 
         // then acts as assertion block, all boolean expressions here are like assert statements
-        then:
+        then: "c = a + b"
         c == 30
     }
 
     def "second spock test"() {
-        given:
+        given: "two values a and b"
         def a = 10
         def b = 20
 
         // expect is a combination of when and then block
-        expect:
+        expect: "a should always be less than b"
         a < b
     }
 
