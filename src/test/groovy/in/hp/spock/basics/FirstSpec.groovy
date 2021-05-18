@@ -9,6 +9,21 @@ import spock.lang.Specification
 class FirstSpec extends Specification {
 
     /**
+     * Fixtures in Spock. It supports the below fixtures
+     * setupSpec    -> executes only once before all test cases
+     * setup        -> executes before each test case
+     * cleanup      -> executes after each test case
+     * cleanupSpec  -> executes after all test cases are completed
+     */
+    def "setupSpec"() {
+        println 'FirstSpec test cases are being executed'
+    }
+
+    def "setup"() {
+        println 'Executing before each test case'
+    }
+
+    /**
      * Each spock test case can be divided into blocks
      * given, when, then, expect, where
      */
@@ -26,5 +41,23 @@ class FirstSpec extends Specification {
         // then acts as assertion block, all boolean expressions here are like assert statements
         then:
         c == 30
+    }
+
+    def "second spock test"() {
+        given:
+        def a = 10
+        def b = 20
+
+        // expect is a combination of when and then block
+        expect:
+        a < b
+    }
+
+    def "cleanup"() {
+        println 'Executing after each test case'
+    }
+
+    def "cleanupSpec"() {
+        println 'FirstSpec test cases have completed execution'
     }
 }
