@@ -1,12 +1,24 @@
 package in.hp.spock.basics
 
+import spock.lang.Shared
 import spock.lang.Specification
 
 /**
  * Each spock test class should extend Specification
  * It is used to identify this is a spock test class and also provides methods to help testing
+ * Each Specification can be considered as below
+ *  fields
+ *  fixture methods
+ *  feature methods
+ *  helper methods
  */
 class FirstSpec extends Specification {
+
+    /**
+     * Both are incremented at each test run, observe the difference
+     */
+    def instanceVariable = 0
+    @Shared def sharedVariable = 0
 
     /**
      * Fixtures in Spock. It supports the below fixtures
@@ -22,6 +34,8 @@ class FirstSpec extends Specification {
 
     def "setup"() {
         println 'Executing before each test case'
+        println "instance variable value: ${instanceVariable++}"
+        println "shared variable value: ${sharedVariable++}"
     }
 
     /**
