@@ -64,4 +64,32 @@ class DataDrivenSpec extends Specification {
         // more cleaner approach as the left shift operator supplies values to the variable
         a << [1, 2, 3, 4, 5, 6, 7, 8, 9]
     }
+
+    def "Multi variable data pipes example"() {
+        expect:
+        println "a: ${a}, b: ${b}, c: ${c}"
+
+        // Have fun understanding the below test case :)
+        where:
+        [a, [b, _, c]] << [
+                ['a1', 'a2'].permutations(),
+                [
+                        ['b1', 'd1', 'c1'],
+                        ['b2', 'd2', 'c2']
+                ]
+        ].combinations()
+
+        /**
+         * Hint for the above.
+         * Try it separately in a script. If not successful read below
+         *
+         * The first param for a will be supplied as below
+         * ['a1', 'a2'].permutations() -> [['a1', 'a2'], ['a2', 'a1']]
+         *
+         * Second param by itself expects 3 variables b, _, c -> Here _ is skipped
+         * The combinations returns like below
+         * [['a1', 'a2'], ['b1', 'd1', 'c1']]
+         * [['a2', 'a1'], ['b1', 'd1', 'c1']]
+         */
+    }
 }
