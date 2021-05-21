@@ -1,0 +1,67 @@
+package in.hp.spock.datadriven
+
+import spock.lang.Rollup
+import spock.lang.Specification
+import spock.lang.Unroll
+
+/**
+ * Spec helps to understand Data Driven Testing using Spock
+ */
+class DataDrivenSpec extends Specification {
+
+    // the input parameters are optional as it is interpreted from the data table headers
+    def "Maximum of #a and #b is #c"(a, b, c) {
+        expect: "Maximum of a and b should be c"
+        c == Math.max(a, b)
+
+        where: "Given a, b, c"
+        /*
+        // first row is called table header
+        a | b | c
+        3 | 3 | 3
+        4 | 5 | 4
+        */
+        __ // sequence of two or more underscore can be used to separate data tables
+        a | _
+        5 | _
+        2 | _
+        __ // sequence of two or more underscore can be used to separate data tables
+        b || c
+        6 || 6
+        1 || 2
+    }
+
+    /**
+     * Using @Unroll annotation shows individual iterations while reporting
+     */
+    @Unroll
+    def "Minimum of two numbers"() {
+        expect: "Minimum of a and b is c"
+        Math.min(a, b) == c
+
+        where: "Given a, b, c"
+        // alternatively, semicolon can also be used to separate columns
+        a; b; ; c
+        1; 2; ; 1
+        10; 11; 10
+    }
+
+    /**
+     * Using @Rollup annotation does not show all the iterations of the data table while reporting
+     */
+    @Rollup
+    def "Single variable testing from data table"() {
+        expect: "Value should be greater than 0"
+        a > 0
+
+        where: "Given variable a"
+        /*
+        // can be represented as below
+        a | _
+        1 | _
+        2 | _
+        */
+        // more cleaner approach as the left shift operator supplies values to the variable
+        a << [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    }
+}
