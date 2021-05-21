@@ -94,4 +94,53 @@ class DataDrivenSpec extends Specification {
          * Refer: PermutationCombinations.groovy
          */
     }
+
+    // we can also access other data variables
+    def "Accessing Other Data Variables Example"() {
+        expect:
+        println "a: ${a}, b: ${b}, c: ${c}, d: ${d}, e: ${e}"
+
+        where:
+        a | b
+        3 | a + 1
+        7 | a + 2
+        0 | a + 3
+
+        and:
+        c = 1
+
+        and:
+        d     | e
+        a * 2 | b * 2
+        a * 3 | b * 3
+        a * 4 | b * 4
+    }
+
+    // we can assign data variables using other variables also
+    def "Data Variable Assignment"() {
+        expect:
+        println "a: ${a}, b: ${b}, c: ${c}"
+
+        where:
+        a = 3
+        b = Math.random() * 100
+        c = a > b ? a : b
+    }
+
+    // we can also combine data table, pipe and variable
+    def "Combining Data Table, Pipe and Variable"() {
+        expect:
+        println "a: ${a}, b: ${b}, c: ${c}, d: ${d}"
+
+        where:
+        a | b
+        1 | a + 1
+        7 | a + 2
+        0 | a + 3
+
+        c << [3, 4, 0]
+
+        d = a > c ? a : c
+    }
+
 }
