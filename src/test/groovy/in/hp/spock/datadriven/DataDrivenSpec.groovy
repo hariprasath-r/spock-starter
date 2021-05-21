@@ -90,6 +90,8 @@ class DataDrivenSpec extends Specification {
          * The combinations returns like below
          * [['a1', 'a2'], ['b1', 'd1', 'c1']]
          * [['a2', 'a1'], ['b1', 'd1', 'c1']]
+         *
+         * Refer: PermutationCombinations.groovy
          */
     }
 }
